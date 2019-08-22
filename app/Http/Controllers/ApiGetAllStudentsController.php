@@ -4,7 +4,7 @@
 		use Request;
 		use DB;
 		use CRUDBooster;
-		header("Access-Control-Allow-Origin: *");
+
 		class ApiGetAllStudentsController extends \crocodicstudio\crudbooster\controllers\ApiController {
 
 		    function __construct() {    
@@ -15,9 +15,7 @@
 		
 
 		    public function hook_before(&$postdata) {
-				//This method will be execute before run the main process
-				
-
+		        //This method will be execute before run the main process
 
 		    }
 

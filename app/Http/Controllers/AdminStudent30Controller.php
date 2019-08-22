@@ -40,8 +40,7 @@
 			$this->col[] = ["label"=>"Mother Mobile","name"=>"mother_mobile"];
 			$this->col[] = ["label"=>"Class","name"=>"class_id","join"=>"school_class,name_english"];
 			$this->col[] = ["label"=>"Bus","name"=>"bus_id","join"=>"bus,bus_number"];
-$this->col[] = ["label"=>"Driver Number","name"=>"bus_id","join"=>"bus,driver_mobile"];
-			$this->col[] = ["label"=>"Default Monthly_fees","name"=>"default_monthly_fees"];
+			$this->col[] = ["label"=>"Driver Number","name"=>"bus_id","join"=>"bus,driver_mobile"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
@@ -55,9 +54,10 @@ $this->col[] = ["label"=>"Driver Number","name"=>"bus_id","join"=>"bus,driver_mo
 			$this->form[] = ['label'=>'Block No','name'=>'block_no','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Father Mobile','name'=>'father_mobile','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Mother Mobile','name'=>'mother_mobile','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Father Email','name'=>'father_email','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Mother Email','name'=>'mother_email','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Class','name'=>'class_id','type'=>'select','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'school_class,name_english'];
 			$this->form[] = ['label'=>'Bus','name'=>'bus_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'bus,bus_number'];
-			$this->form[] = ['label'=>'Default Monthly_fees','name'=>'default_monthly_fees','type'=>'number','validation'=>'required','width'=>'col-sm-10'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
@@ -71,9 +71,10 @@ $this->col[] = ["label"=>"Driver Number","name"=>"bus_id","join"=>"bus,driver_mo
 			//$this->form[] = ['label'=>'Block No','name'=>'block_no','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Father Mobile','name'=>'father_mobile','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Mother Mobile','name'=>'mother_mobile','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Father Email','name'=>'father_email','type'=>'text','validation'=>'required','width'=>'col-sm-9'];
+			//$this->form[] = ['label'=>'Mother Email','name'=>'mother_email','type'=>'text','validation'=>'required','width'=>'col-sm-9'];
 			//$this->form[] = ['label'=>'Class','name'=>'class_id','type'=>'select','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'school_class,name_english'];
-			//$this->form[] = ['label'=>'Bus','name'=>'bus_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'company_bus,number'];
-			//$this->form[] = ['label'=>'Default Monthly_fees','name'=>'default_monthly_fees','type'=>'number','validation'=>'required','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Bus','name'=>'bus_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'bus,bus_number'];
 			# OLD END FORM
 
 			/* 
@@ -359,7 +360,60 @@ $this->col[] = ["label"=>"Driver Number","name"=>"bus_id","join"=>"bus,driver_mo
 
 
 
-	    //By the way, you can still create your own method in here... :) 
+		//By the way, you can still create your own method in here... :) 
+
+		// api to get all students with data related to it in other tables 
+		
+		public function get_all_students()
+		{
+
+			$students = DB::table('student')
+						 ->leftJoin('bus', 'student.bus_id', '=', 'bus.id')
+						 ->leftJoin('city', 'student.city_id', '=', 'city.id')
+						 ->leftJoin('school_class', 'student.class_id', '=', 'school_class.id')
+						 ->get( 
+							 [ 
+							 'student.id as student_id',
+							 'student.name_english as student_name_english',
+							 'student.name_arabic as student_name_arabic',
+							 'student.*',
+							 'city.id as city_id',
+							 'city.name_english as city_name_english',
+							 'city.name_arabic as city_name_arabic',
+							 'city.*',
+							 'school_class.id as school_class_id',
+							 'school_class.name_english as class_name_english',
+							 'school_class.name_arabic as class_name_english',
+							 'school_class.*',
+							 ] );
+
+ 
+						return response()->json($students) ;
+		}
+
+		// get data of specific student 
+
+		public function get_student_data(Request $request )
+		{
+			return reponse()->json($request) ;  
+		}
+
+			
+
+		
+
+
+		// this function use to update presonal date and monthly payment of student 
+
+		public function save_student_data( Request $request )
+		{
+
+			// check if data send to the update all is correct 
+
+			return json_encode($request) ; 
+
+
+		}
 
 
 	}

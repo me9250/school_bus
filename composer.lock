@@ -1085,7 +1085,7 @@
             "authors": [
                 {
                     "name": "Iman Ghafoori",
-                    "email": "Imanghafoori1@gmail.com"
+                    "email": "imanghafoori1@gmail.com"
                 }
             ],
             "description": "A minimal yet powerful package to give you opportunity to refactor your controllers.",

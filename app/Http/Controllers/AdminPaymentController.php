@@ -160,7 +160,48 @@
 	        | $this->script_js = "function() { ... }";
 	        |
 	        */
-	        $this->script_js = NULL;
+	        $this->script_js = "
+			$(function() {
+			
+				// step 1 : get students name and id 
+
+				$.get( '/school_bus/public/api/get_all_students' , function( data ) {
+
+					var students = new Array() ; 
+
+					students = data ; 
+
+					console.log('array of students')
+					console.log(students)
+
+					console.log('list of students')
+
+					// step 2 : set data of student in list in custom html created  
+					
+					students.forEach(function(student){
+
+						console.log(student)
+
+						$('#students').append('<option value='+ student.student_id +' >' + student.student_name_english + ' / ' + student.student_name_arabic  +'</option>') ; 
+
+
+					})
+
+					// Step 3 : get data of current selected student 
+
+
+
+
+
+			
+
+
+				})
+		
+			
+				});
+				
+			";
 
 
             /*
@@ -171,7 +212,61 @@
 	        | $this->pre_index_html = "<p>test</p>";
 	        |
 	        */
-	        $this->pre_index_html = null;
+			$this->pre_index_html = "
+			
+
+			<!-- Row 1 - List of Students --> 
+
+			<div class='row'>
+
+			<div class='col-sm-12'>
+
+			<div class='form-group'>
+			<label for='student'>Student List :</label>
+			<select class='form-control' id='students'>
+			</select>
+			</div>
+				
+			</div>
+
+		    </div> 
+
+			<!-- Row 2 - data of selected student -->
+
+			<div class='row'>
+
+				<div class='col-sm-4'>
+
+				<div class='form-group'>
+				<label for='student_class'>Student Class :</label>
+				<input type='text' class='form-control' name='student_class' >
+				</div>
+				
+				</div>
+
+				<div class='col-sm-4'>
+
+				<div class='form-group'>
+				<label for='student_name_english'>Name English :</label>
+				<input type='text' class='form-control' name='student_name_english' >
+				</div>
+			
+				</div>
+
+				<div class='col-sm-4'>
+
+				<div class='form-group'>
+				<label for='student_name_arabic'>Name Arabic :</label>
+				<input type='text' class='form-control' name='student_name_arabic' >
+				</div>
+				
+				</div>
+
+		    </div> 
+
+
+
+			"; 
 	        
 	        
 	        
@@ -207,7 +302,11 @@
 	        | $this->style_css = ".style{....}";
 	        |
 	        */
-	        $this->style_css = NULL;
+			$this->style_css = "
+			.box {
+			   display: none;
+			}
+		  ";
 	        
 	        
 	        
@@ -336,7 +435,23 @@
 
 
 
-	    //By the way, you can still create your own method in here... :) 
+		//By the way, you can still create your own method in here... :) 
+		
+
+		// use custom method 
+
+		public function getIndex() {
+			//First, Add an auth
+			 if(!CRUDBooster::isView()) CRUDBooster::redirect(CRUDBooster::adminPath(),trans('crudbooster.denied_access'));
+			 
+			 //Create your own query 
+			 $data = [];
+			 $data['page_title'] = 'Products Data';
+			
+			  
+			 //Create a view. Please use `cbView` method instead of view method from laravel.
+		 	 $this->cbView('vendor/crudbooster/type_components/students_payment_recipts',$data);
+		  }
 
 
 	}

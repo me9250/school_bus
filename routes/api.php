@@ -16,3 +16,16 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+Route::get('get_all_students', 'StudentsReciptsController@get_all_students');
+
+Route::get('get_student_data', "StudentsReciptsController@get_student_data" );
+
+Route::get('get_student_data_using_his_name', "StudentsReciptsController@get_student_data_using_his_name" );
+
+Route::get('get_study_years', "StudentsReciptsController@get_study_years" );
+
+Route::get('get_student_payment_recipt_in_specific_year', "StudentsReciptsController@get_student_payment_recipt_in_specific_year" );
+

@@ -11,6 +11,16 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
+
+Route::redirect('/', '/school_bus/public/admin');
+
+
+Route::redirect('/dashboard', '/vendor/crudbooster/type_components/students_payment_recipts');
+
+Route::get('/StudentsRecipts' , 'StudentsReciptsController@index' ) ; 
+
