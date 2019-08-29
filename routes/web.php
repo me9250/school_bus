@@ -19,8 +19,11 @@ Route::get('/', function () {
 
 Route::redirect('/', '/school_bus/public/admin');
 
-
-Route::redirect('/dashboard', '/vendor/crudbooster/type_components/students_payment_recipts');
-
 Route::get('/StudentsRecipts' , 'StudentsReciptsController@index' ) ; 
+
+Route::get('/BusStudents' , 'BusStudentsController@index' ) ; 
+
+Route::get('/ClassStudents' , 'ClassStudentsController@index' ) ; 
+
+Route::get('/YearTotal' , 'YearTotalController@index' ) ; 
 

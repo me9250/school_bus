@@ -1,0 +1,34 @@
+@media print {
+
+    .student_recipt_form
+    {
+        display: none; 
+    }
+
+    title{
+        display: none ; 
+    }
+
+    .recipt
+    {
+        display: block !important; 
+    }
+
+    @page {
+        size: auto;   /* auto is the initial value */
+        margin: 0;  /* this affects the margin in the printer settings */
+    }
+
+    footer{
+        display: none !important ; 
+    }
+
+    .paid{
+        color : green !important ; 
+    }
+
+    .unpaid{
+        color :red !important ; 
+    }
+ 
+}
